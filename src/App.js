@@ -29,16 +29,15 @@ function App() {
   };
 
   const clearForm = () => {
-    setEmail("");
     setFirstName("");
     setLastName("");
-    setPassword({ value: "" });
+    setEmail("");
+    setPassword({ isTouched: false, value: "" });
     setRole("Role");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     alert("Account created!");
     clearForm();
   };
