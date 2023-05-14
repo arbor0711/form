@@ -37,27 +37,52 @@ function App() {
       <form onSubmit={handleSubmit}>
         <fieldset>
           <h2>Sign Up</h2>
+
           <div className="Field">
             <label htmlFor="firstName">
               First name <sup>*</sup>
             </label>
-            <input placeholder="First name" id="firstName" autoFocus />
+            <input
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="First name"
+              id="firstName"
+              autoFocus
+            />
           </div>
+
           <div className="Field">
             <label htmlFor="lastName">Last name</label>
-            <input placeholder="Last name" id="lastName" />
+            <input
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Last name"
+              id="lastName"
+            />
           </div>
+
           <div className="Field">
             <label htmlFor="email">
               Email address <sup>*</sup>
             </label>
-            <input placeholder="Email address" id="email" />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email address"
+              id="email"
+            />
           </div>
+
           <div className="Field">
             <label htmlFor="password">
               Password <sup>*</sup>
             </label>
-            <input placeholder="Password" id="password" />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              id="password"
+            />
           </div>
           <div className="Field">
             <label htmlFor="role">
