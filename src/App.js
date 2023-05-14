@@ -1,6 +1,5 @@
 import "./App.css";
 import { useState } from "react";
-import { validateEmail } from "./utils";
 
 const PasswordErrorMessage = () => {
   return (
@@ -8,21 +7,42 @@ const PasswordErrorMessage = () => {
   );
 };
 
+const EmailErrorMessage = () => {
+  return (
+    <p className="FieldError">
+      Invalid email address. Valid e-mail can contain only latin letters,
+      numbers, '@' and '.'
+    </p>
+  );
+};
+
 function App() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState({
+    value: "",
+    isTouched: false,
+  });
   const [password, setPassword] = useState({
     value: "",
     isTouched: false,
   });
   const [role, setRole] = useState("role");
 
+  const validateEmail = (e) => {
+    return String(e)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+  console.log(validateEmail);
+
   const getIsFormValid = () => {
     return (
       firstName &&
       lastName &&
-      email &&
+      email.value &&
       password.value.length >= 8 &&
       role !== "role"
     );
@@ -31,7 +51,7 @@ function App() {
   const clearForm = () => {
     setFirstName("");
     setLastName("");
-    setEmail("");
+    setEmail({ isTouched: false, value: "" });
     setPassword({ isTouched: false, value: "" });
     setRole("Role");
   };
@@ -57,7 +77,6 @@ function App() {
               onChange={(e) => {
                 setFirstName(e.target.value);
               }}
-              autocomplete
               placeholder="First name"
               id="firstName"
               autoFocus
@@ -71,7 +90,6 @@ function App() {
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Last name"
               id="lastName"
-              autocomplete
             />
           </div>
 
@@ -80,12 +98,17 @@ function App() {
               Email address <sup>*</sup>
             </label>
             <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={email.value}
+              onChange={(e) => setEmail({ ...email, value: e.target.value })}
+              onBlur={() => {
+                setEmail({ ...email, isTouched: true });
+              }}
               placeholder="Email address"
               id="email"
-              autocomplete
             />
+            {email.isTouched && !validateEmail(email.value) ? (
+              <EmailErrorMessage />
+            ) : null}
           </div>
 
           <div className="Field">
