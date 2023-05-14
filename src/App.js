@@ -33,9 +33,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password.value.length < 8) {
-      () => PasswordErrorMessage;
-    }
+
     alert("Account created!");
     clearForm();
   };
@@ -95,10 +93,16 @@ function App() {
               onChange={(e) =>
                 setPassword({ ...password, value: e.target.value })
               }
+              onBlur={() => {
+                setPassword({ ...password, isTouched: true });
+              }}
               type="password"
               placeholder="Password"
               id="password"
             />
+            {password.isTouched && password.value.length < 8 ? (
+              <PasswordErrorMessage />
+            ) : null}
           </div>
 
           <div className="Field">
