@@ -24,10 +24,18 @@ function App() {
   };
 
   const clearForm = () => {
-    // Implement this function
+    setEmail("");
+    setFirstName("");
+    setLastName("");
+    setPassword({ value: "" });
+    setRole("Role");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password.value.length < 8) {
+      () => PasswordErrorMessage;
+    }
     alert("Account created!");
     clearForm();
   };
@@ -44,7 +52,10 @@ function App() {
             </label>
             <input
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => {
+                setFirstName(e.target.value);
+              }}
+              autocomplete
               placeholder="First name"
               id="firstName"
               autoFocus
@@ -58,6 +69,7 @@ function App() {
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Last name"
               id="lastName"
+              autocomplete
             />
           </div>
 
@@ -70,6 +82,7 @@ function App() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email address"
               id="email"
+              autocomplete
             />
           </div>
 
@@ -78,22 +91,31 @@ function App() {
               Password <sup>*</sup>
             </label>
             <input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={password.value}
+              onChange={(e) =>
+                setPassword({ ...password, value: e.target.value })
+              }
+              type="password"
               placeholder="Password"
               id="password"
             />
           </div>
+
           <div className="Field">
             <label htmlFor="role">
               Role <sup>*</sup>
             </label>
-            <select id="role">
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
               <option value="role">Role</option>
               <option value="individual">Individual</option>
               <option value="business">Business</option>
             </select>
           </div>
+
           <button type="submit" disabled={!getIsFormValid()}>
             Create account
           </button>
