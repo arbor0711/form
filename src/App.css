@@ -1,5 +1,5 @@
 body {
-  padding: 16px;
+  margin: 16px;
 }
 .App {
   display: flex;
@@ -10,7 +10,7 @@ body {
 
 fieldset {
   display: flex;
-  width: 380px;
+  width: 480px;
   padding: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
